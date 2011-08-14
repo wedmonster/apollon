@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="home">
+	
+	<select id="login" parameterClass="java.util.HashMap" resultClass="com.apollon.manager.User">
+		<![CDATA[
+		select user_id, user_name from apollon.user_info 
+		where user_name= #user_name# and user_password = Password(#user_password#)
+		]]>
+	</select>
+	
+	<insert id="join" parameterClass="java.util.HashMap">
+		<![CDATA[
+		insert into apollon.user_info(user_name, user_password)
+		values(#user_name#, Password(#user_password#))
+		]]>
+		<selectKey keyProperty="id" resultClass="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+</sqlMap>

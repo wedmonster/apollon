@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="homework">
+	<select id="selectHomeworkByLid" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select 
+h_id, l_id, u_id, date_format(write_date, '%Y/%m/%d %a') as write_date,
+date_format(deadline_date, '%Y/%m/%d %a') as deadline_date, homework_content, state from apollon.homework_info
+		where u_id=$u_id$ and l_id=$l_id$
+		]]>
+	</select>
+	<select id="selectHomeworkByDeadlineDate" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select 
+h_id, l_id, u_id, date_format(write_date, '%Y/%m/%d %a') as write_date,
+date_format(deadline_date, '%Y/%m/%d %a') as deadline_date, homework_content, state from apollon.homework_info
+		where deadline_date=#lecture_date# and u_id=$u_id$ order by h_id
+		]]>
+	</select>
+	<select id="selectDeadlineDate" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select h_id, l_id, u_id, date_format(write_date, '%Y/%m/%d %a') as formatted_write_date, 
+		write_date, date_format(deadline_date, '%Y/%m/%d %a') as deadline_date, homework_content, state
+		from apollon.homework_info 
+		where u_id = $u_id$ and deadline_date >= now()
+		order by deadline_date
+		]]>
+	</select>		
+	<select id="selectHomeworkOrderByWriteDate" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select A.l_id, date_format(B.lecture_date, '%Y/%m/%d %a') as lecture_date,
+		A.h_id, A.u_id, date_format(A.write_date, '%Y/%m/%d %a') as formatted_write_date,
+		A.write_date, date_format(A.deadline_date, '%Y/%m/%d %a') as deadline_date, A.homework_content, A.state
+		from apollon.homework_info as A, apollon.lecture_info as B
+		where A.u_id = $u_id$ and A.l_id = B.l_id order by A.write_date desc
+		]]>
+	</select>
+</sqlMap>

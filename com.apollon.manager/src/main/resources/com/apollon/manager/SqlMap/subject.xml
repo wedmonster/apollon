@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="subject">
+	
+	<select id="selectTerms" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select t_id, term from apollon.term 
+		where t_id in (select t_id from apollon.subject where u_id = #u_id#) 
+		and u_id = #u_id#
+		order by term desc
+		]]>
+	</select>
+	<select id="selectSubjects" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select t_id, s_id, title from apollon.subject 
+		where u_id = #u_id# order by t_id desc, title asc
+		]]>
+	</select>
+	<select id="selectSubjectsOrderByTitle" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select t_id, s_id, title from apollon.subject 
+		where u_id = #u_id# order by title
+		]]>
+	</select>
+	<select id="selectSubjectInformation" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select a.s_id, a.u_id, a.title, b.term from apollon.`subject` as a, apollon.term as b
+		where A.u_id=$u_id$ and A.s_id=$s_id$ and A.t_id = b.t_id
+		]]>
+	</select>
+	<select id="selectSubjectExtraInformation" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select * from apollon.subject_info
+		where u_id=$u_id$ and s_id=$s_id$
+		]]>
+	</select>
+	
+</sqlMap>

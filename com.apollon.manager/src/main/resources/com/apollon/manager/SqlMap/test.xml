@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="test">
+
+	<select id="selectTest" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select * from apollon.test_info 
+		where u_id = $u_id$ and s_id = $s_id$
+		order by write_date desc
+
+		]]>
+	</select>
+	<select id="selectRemaindTests" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		select * from apollon.test_info 
+		where u_id = $u_id$ and s_id = $s_id$ and isDone = false
+		order by take_test_date
+		]]>
+	</select>
+
+
+</sqlMap>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+  <sqlMap resource="com/apollon/manager/SqlMap/testSql.xml"/>
+  <sqlMap resource="com/apollon/manager/SqlMap/home.xml"/>
+  <sqlMap resource="com/apollon/manager/SqlMap/subject.xml"/>
+  <sqlMap resource="com/apollon/manager/SqlMap/lecture.xml"/>
+  <sqlMap resource="com/apollon/manager/SqlMap/homework.xml"/>
+  <sqlMap resource="com/apollon/manager/SqlMap/test.xml"/>
+</sqlMapConfig>
+
